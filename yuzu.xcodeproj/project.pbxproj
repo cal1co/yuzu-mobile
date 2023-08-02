@@ -11,6 +11,12 @@
 		A83D7BF82A79425000F071E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7BF72A79425000F071E1 /* ContentView.swift */; };
 		A83D7BFA2A79425200F071E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BF92A79425200F071E1 /* Assets.xcassets */; };
 		A83D7BFD2A79425200F071E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */; };
+		A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C042A79F20400F071E1 /* TabBarView.swift */; };
+		A83D7C092A79F27000F071E1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C082A79F27000F071E1 /* HomeView.swift */; };
+		A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C0B2A79F29E00F071E1 /* SearchView.swift */; };
+		A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C0E2A79F2B600F071E1 /* PostCreateView.swift */; };
+		A83D7C122A79F2C800F071E1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C112A79F2C800F071E1 /* NotificationsView.swift */; };
+		A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C142A79F2EC00F071E1 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		A83D7BF72A79425000F071E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A83D7BF92A79425200F071E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A83D7C042A79F20400F071E1 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		A83D7C082A79F27000F071E1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A83D7C0B2A79F29E00F071E1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		A83D7C0E2A79F2B600F071E1 /* PostCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateView.swift; sourceTree = "<group>"; };
+		A83D7C112A79F2C800F071E1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		A83D7C142A79F2EC00F071E1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +63,7 @@
 		A83D7BF42A79425000F071E1 /* yuzu */ = {
 			isa = PBXGroup;
 			children = (
+				A83D7C032A79F18400F071E1 /* Views */,
 				A83D7BF52A79425000F071E1 /* yuzuApp.swift */,
 				A83D7BF72A79425000F071E1 /* ContentView.swift */,
 				A83D7BF92A79425200F071E1 /* Assets.xcassets */,
@@ -65,6 +78,67 @@
 				A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A83D7C032A79F18400F071E1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C132A79F2DB00F071E1 /* Profile */,
+				A83D7C102A79F2BB00F071E1 /* Notifications */,
+				A83D7C0D2A79F2AA00F071E1 /* PostCreate */,
+				A83D7C0A2A79F29100F071E1 /* Search */,
+				A83D7C072A79F26000F071E1 /* Home */,
+				A83D7C062A79F24B00F071E1 /* TabBar */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A83D7C062A79F24B00F071E1 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C042A79F20400F071E1 /* TabBarView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		A83D7C072A79F26000F071E1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C082A79F27000F071E1 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A83D7C0A2A79F29100F071E1 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C0B2A79F29E00F071E1 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		A83D7C0D2A79F2AA00F071E1 /* PostCreate */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C0E2A79F2B600F071E1 /* PostCreateView.swift */,
+			);
+			path = PostCreate;
+			sourceTree = "<group>";
+		};
+		A83D7C102A79F2BB00F071E1 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C112A79F2C800F071E1 /* NotificationsView.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		A83D7C132A79F2DB00F071E1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C142A79F2EC00F071E1 /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +211,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
+				A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */,
 				A83D7BF82A79425000F071E1 /* ContentView.swift in Sources */,
+				A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */,
+				A83D7C092A79F27000F071E1 /* HomeView.swift in Sources */,
+				A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */,
 				A83D7BF62A79425000F071E1 /* yuzuApp.swift in Sources */,
+				A83D7C122A79F2C800F071E1 /* NotificationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
