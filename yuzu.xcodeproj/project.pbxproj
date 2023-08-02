@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A83D7BF62A79425000F071E1 /* yuzuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7BF52A79425000F071E1 /* yuzuApp.swift */; };
-		A83D7BF82A79425000F071E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7BF72A79425000F071E1 /* ContentView.swift */; };
 		A83D7BFA2A79425200F071E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BF92A79425200F071E1 /* Assets.xcassets */; };
 		A83D7BFD2A79425200F071E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */; };
 		A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C042A79F20400F071E1 /* TabBarView.swift */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		A83D7BF22A79425000F071E1 /* yuzu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yuzu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A83D7BF52A79425000F071E1 /* yuzuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yuzuApp.swift; sourceTree = "<group>"; };
-		A83D7BF72A79425000F071E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A83D7BF92A79425200F071E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A83D7C042A79F20400F071E1 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 			children = (
 				A83D7C032A79F18400F071E1 /* Views */,
 				A83D7BF52A79425000F071E1 /* yuzuApp.swift */,
-				A83D7BF72A79425000F071E1 /* ContentView.swift */,
 				A83D7BF92A79425200F071E1 /* Assets.xcassets */,
 				A83D7BFB2A79425200F071E1 /* Preview Content */,
 			);
@@ -213,7 +210,6 @@
 			files = (
 				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
 				A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */,
-				A83D7BF82A79425000F071E1 /* ContentView.swift in Sources */,
 				A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */,
 				A83D7C092A79F27000F071E1 /* HomeView.swift in Sources */,
 				A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */,
