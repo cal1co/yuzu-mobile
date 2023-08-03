@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct yuzuApp: App {
-    var body: some Scene {
-        WindowGroup {
-            TabBarView()
+    @StateObject var authService = AuthenticationService()
+
+        var body: some Scene {
+            WindowGroup {
+//                if authService.isAuthenticated {
+                    TabBarView().environmentObject(authService)
+//                } else {
+//                    LandingView().environmentObject(authService)
+//                }
+            }
         }
-    }
 }

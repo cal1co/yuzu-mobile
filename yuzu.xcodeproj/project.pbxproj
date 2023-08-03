@@ -16,6 +16,12 @@
 		A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C0E2A79F2B600F071E1 /* PostCreateView.swift */; };
 		A83D7C122A79F2C800F071E1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C112A79F2C800F071E1 /* NotificationsView.swift */; };
 		A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C142A79F2EC00F071E1 /* ProfileView.swift */; };
+		A83D7C182A7BAFA800F071E1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C172A7BAFA800F071E1 /* HomeViewModel.swift */; };
+		A83D7C1B2A7BB0E500F071E1 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C1A2A7BB0E500F071E1 /* AuthenticationService.swift */; };
+		A83D7C1F2A7BB7FB00F071E1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C1E2A7BB7FB00F071E1 /* LoginView.swift */; };
+		A83D7C222A7BB8F100F071E1 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C212A7BB8F100F071E1 /* SignupView.swift */; };
+		A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C242A7BBA5000F071E1 /* LandingView.swift */; };
+		A83D7C282A7BC03300F071E1 /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +35,12 @@
 		A83D7C0E2A79F2B600F071E1 /* PostCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateView.swift; sourceTree = "<group>"; };
 		A83D7C112A79F2C800F071E1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		A83D7C142A79F2EC00F071E1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		A83D7C172A7BAFA800F071E1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A83D7C1A2A7BB0E500F071E1 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		A83D7C1E2A7BB7FB00F071E1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A83D7C212A7BB8F100F071E1 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		A83D7C242A7BBA5000F071E1 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +73,8 @@
 		A83D7BF42A79425000F071E1 /* yuzu */ = {
 			isa = PBXGroup;
 			children = (
+				A83D7C192A7BB0BE00F071E1 /* Services */,
+				A83D7C162A7BAF7C00F071E1 /* ViewModels */,
 				A83D7C032A79F18400F071E1 /* Views */,
 				A83D7BF52A79425000F071E1 /* yuzuApp.swift */,
 				A83D7BF92A79425200F071E1 /* Assets.xcassets */,
@@ -80,6 +94,10 @@
 		A83D7C032A79F18400F071E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A83D7C262A7BC02400F071E1 /* PasswordInput */,
+				A83D7C232A7BBA4000F071E1 /* Landing */,
+				A83D7C202A7BB8E200F071E1 /* Signup */,
+				A83D7C1C2A7BB7E800F071E1 /* Login */,
 				A83D7C132A79F2DB00F071E1 /* Profile */,
 				A83D7C102A79F2BB00F071E1 /* Notifications */,
 				A83D7C0D2A79F2AA00F071E1 /* PostCreate */,
@@ -136,6 +154,54 @@
 				A83D7C142A79F2EC00F071E1 /* ProfileView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		A83D7C162A7BAF7C00F071E1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C172A7BAFA800F071E1 /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A83D7C192A7BB0BE00F071E1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C1A2A7BB0E500F071E1 /* AuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A83D7C1C2A7BB7E800F071E1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C1E2A7BB7FB00F071E1 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		A83D7C202A7BB8E200F071E1 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C212A7BB8F100F071E1 /* SignupView.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		A83D7C232A7BBA4000F071E1 /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C242A7BBA5000F071E1 /* LandingView.swift */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		A83D7C262A7BC02400F071E1 /* PasswordInput */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */,
+			);
+			path = PasswordInput;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,12 +274,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */,
 				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
 				A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */,
 				A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */,
+				A83D7C1B2A7BB0E500F071E1 /* AuthenticationService.swift in Sources */,
+				A83D7C182A7BAFA800F071E1 /* HomeViewModel.swift in Sources */,
 				A83D7C092A79F27000F071E1 /* HomeView.swift in Sources */,
+				A83D7C282A7BC03300F071E1 /* PasswordInputView.swift in Sources */,
 				A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */,
 				A83D7BF62A79425000F071E1 /* yuzuApp.swift in Sources */,
+				A83D7C1F2A7BB7FB00F071E1 /* LoginView.swift in Sources */,
+				A83D7C222A7BB8F100F071E1 /* SignupView.swift in Sources */,
 				A83D7C122A79F2C800F071E1 /* NotificationsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +418,7 @@
 				DEVELOPMENT_TEAM = F2MWC3D9BS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -375,6 +448,7 @@
 				DEVELOPMENT_TEAM = F2MWC3D9BS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
