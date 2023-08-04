@@ -22,6 +22,11 @@
 		A83D7C222A7BB8F100F071E1 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C212A7BB8F100F071E1 /* SignupView.swift */; };
 		A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C242A7BBA5000F071E1 /* LandingView.swift */; };
 		A83D7C282A7BC03300F071E1 /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */; };
+		A83D7C2A2A7BDAE300F071E1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C292A7BDAE300F071E1 /* ProfileViewModel.swift */; };
+		A83D7C2E2A7D2F8700F071E1 /* ProfileFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C2D2A7D2F8700F071E1 /* ProfileFeedView.swift */; };
+		A83D7C302A7D31ED00F071E1 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C2F2A7D31ED00F071E1 /* ProfileInfoView.swift */; };
+		A83D7C322A7D359B00F071E1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C312A7D359B00F071E1 /* ProfileHeaderView.swift */; };
+		A83D7C352A7D3F0200F071E1 /* TextFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C342A7D3F0200F071E1 /* TextFontView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +46,11 @@
 		A83D7C212A7BB8F100F071E1 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		A83D7C242A7BBA5000F071E1 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
+		A83D7C292A7BDAE300F071E1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		A83D7C2D2A7D2F8700F071E1 /* ProfileFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFeedView.swift; sourceTree = "<group>"; };
+		A83D7C2F2A7D31ED00F071E1 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
+		A83D7C312A7D359B00F071E1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		A83D7C342A7D3F0200F071E1 /* TextFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFontView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +83,7 @@
 		A83D7BF42A79425000F071E1 /* yuzu */ = {
 			isa = PBXGroup;
 			children = (
+				A83D7C332A7D3EF000F071E1 /* Styling */,
 				A83D7C192A7BB0BE00F071E1 /* Services */,
 				A83D7C162A7BAF7C00F071E1 /* ViewModels */,
 				A83D7C032A79F18400F071E1 /* Views */,
@@ -152,6 +163,9 @@
 			isa = PBXGroup;
 			children = (
 				A83D7C142A79F2EC00F071E1 /* ProfileView.swift */,
+				A83D7C2D2A7D2F8700F071E1 /* ProfileFeedView.swift */,
+				A83D7C2F2A7D31ED00F071E1 /* ProfileInfoView.swift */,
+				A83D7C312A7D359B00F071E1 /* ProfileHeaderView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -160,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				A83D7C172A7BAFA800F071E1 /* HomeViewModel.swift */,
+				A83D7C292A7BDAE300F071E1 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -202,6 +217,14 @@
 				A83D7C272A7BC03300F071E1 /* PasswordInputView.swift */,
 			);
 			path = PasswordInput;
+			sourceTree = "<group>";
+		};
+		A83D7C332A7D3EF000F071E1 /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C342A7D3F0200F071E1 /* TextFontView.swift */,
+			);
+			path = Styling;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,10 +299,15 @@
 			files = (
 				A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */,
 				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
+				A83D7C352A7D3F0200F071E1 /* TextFontView.swift in Sources */,
 				A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */,
 				A83D7C0F2A79F2B600F071E1 /* PostCreateView.swift in Sources */,
+				A83D7C322A7D359B00F071E1 /* ProfileHeaderView.swift in Sources */,
 				A83D7C1B2A7BB0E500F071E1 /* AuthenticationService.swift in Sources */,
+				A83D7C2E2A7D2F8700F071E1 /* ProfileFeedView.swift in Sources */,
 				A83D7C182A7BAFA800F071E1 /* HomeViewModel.swift in Sources */,
+				A83D7C2A2A7BDAE300F071E1 /* ProfileViewModel.swift in Sources */,
+				A83D7C302A7D31ED00F071E1 /* ProfileInfoView.swift in Sources */,
 				A83D7C092A79F27000F071E1 /* HomeView.swift in Sources */,
 				A83D7C282A7BC03300F071E1 /* PasswordInputView.swift in Sources */,
 				A83D7C052A79F20400F071E1 /* TabBarView.swift in Sources */,
