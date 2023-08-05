@@ -11,7 +11,7 @@ struct ProfileInfoView: View {
     @Environment (\.colorScheme) var colorScheme
     @State var displayName = "display name"
     @State var username = "name"
-    @State var bio = "This is a test bio."
+    @State var bio = "Hello, my name is alex, welcome to my profile"
     @State var followingCount = 5
     @State var followerCount = 3
     @State var postCount = 2
@@ -83,15 +83,15 @@ struct ProfileInfoView: View {
                         print("Button tapped!")
                     }) {
                         TextFontView(text: "Follow", fontSize:14)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                             .frame(maxWidth: .infinity)
                             .fontWeight(.bold)
                             .padding()
-                            .background(Color.white)
+                            .background(colorScheme == .dark ? Color.black : Color.white)
                             .cornerRadius(20)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 7)
-                                .stroke(Color.black, lineWidth: 2)
+                                    .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 2)
                             )
                     }.padding(EdgeInsets(top:10, leading:40, bottom: 30, trailing: 40))
                     

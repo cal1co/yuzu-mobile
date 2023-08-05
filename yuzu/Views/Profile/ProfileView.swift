@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment (\.colorScheme) var colorScheme
     @ObservedObject var profileViewModel = ProfileViewModel()
     @State private var scrollOffset: CGFloat = 0
         
@@ -20,7 +21,7 @@ struct ProfileView: View {
                         value: geometry.frame(in: .named("ScrollView")).minY)
                     }.frame(height: 0)
                     RoundedRectangle(cornerRadius: 0) // Adjust as needed
-                       .fill(Color.white)
+                        .fill(colorScheme == .dark ? Color.black : Color.white)
                        .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
                        .frame(height:380)
                        .overlay(
