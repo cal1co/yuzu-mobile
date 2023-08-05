@@ -18,12 +18,18 @@ struct ProfileView: View {
                     GeometryReader { geometry in
                         Color.clear.preference(key: ScrollOffsetPreferenceKey.self,
                         value: geometry.frame(in: .named("ScrollView")).minY)
-                    }
-                    .frame(height: 0)
-
-                    ProfileInfoView()
-//                        .frame(height: 300)
-                        .padding(.top, 50)
+                    }.frame(height: 0)
+                    RoundedRectangle(cornerRadius: 0) // Adjust as needed
+                       .fill(Color.white)
+                       .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
+                       .frame(height:380)
+                       .overlay(
+                        
+                        ProfileInfoView()
+                    
+                    )
+//                       .padding(.top, 100)
+//                        .padding(.top, 50)
                     ProfileFeedView()
                 }
             }
