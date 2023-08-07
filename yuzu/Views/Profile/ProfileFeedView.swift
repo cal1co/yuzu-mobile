@@ -19,8 +19,7 @@ struct ProfileFeedView: View {
 
         var body: some View {
             ForEach(posts) { post in
-                Text(post.post_content)
-                    .frame(height:250)
+                PostRenderView(postId: post.post_id, postContent: post.post_content, userId: post.user_id, dateCreated: post.created_at, likeCount: post.like_count, commentsCount: post.comments_count, username: post.username, liked: post.liked, displayName: post.display_name, profileImage: post.profile_image, media: post.media)
             }
         }
 }

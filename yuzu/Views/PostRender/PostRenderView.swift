@@ -11,18 +11,19 @@ import SwiftUI
 struct PostRenderView: View {
     
     @Environment (\.colorScheme) var colorScheme
+    @State private var isMenuOpen = false
     
-    var postId: String
-    var postContent: String
-    var userId: Int
-    var dateCreated: String
-    var likeCount: Int
-    var commentsCount: Int
-    var username: String
-    var liked: Bool
-    var displayName: String
-    var profileImage: String
-    var media: [String]?
+    let postId: String
+    let postContent: String
+    let userId: Int
+    let dateCreated: String
+    let likeCount: Int
+    let commentsCount: Int
+    let username: String
+    let liked: Bool
+    let displayName: String
+    let profileImage: String
+    let media: [String]?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -44,7 +45,7 @@ struct PostRenderView: View {
                         
                         HStack {
                             Text(displayName)
-                                .font(.custom("Hiragino Kaku Gothic ProN", size: 16))
+                                .font(.custom("Hiragino Kaku Gothic ProN", size: 14))
                                 .fontWeight(.bold)
                             Text("@" + username)
                                 .font(.custom("Hiragino Kaku Gothic ProN", size: 12))
@@ -67,10 +68,26 @@ struct PostRenderView: View {
                                     print("Report Post action")
                                 })
                             } label: {
-                                Image(systemName: "ellipsis")
-                                    .font(.title)
+                                ZStack {
+//                                    if isMenuOpen {
+//                                        Circle()
+//                                            .fill(Color(red: 0/255,  green: 186/255, blue: 124 / 255))
+//                                            .frame(width: 30, height: 30)
+//                                    }
+                                    Image(
+                                          colorScheme == .dark ?
+                                          "Ellipsis-Dark"
+                                          :
+                                            "Ellipsis-Light")
+                                        .font(.title)
+                                        .frame(width: 25, height: 25)
+                                }
                             }
-                            
+                            .onTapGesture {
+                                withAnimation(.easeIn(duration: 0.3)) {
+                                    isMenuOpen.toggle()
+                                }
+                            }
                         }
                         
                         ZStack {
@@ -113,24 +130,45 @@ struct PostRenderView: View {
 
                         HStack {
                             HStack {
-                                Image(systemName: "heart.fill")
-                                    .foregroundColor(.red)
+                                Button(action: {
+                                    print("liked")
+                                }) {
+                                    Image (liked ? "Liked"
+                                           : colorScheme == .dark ?
+                                           "Unliked-Dark"
+                                           :
+                                            "Unliked-Light")
+                                    .font(.system(size:20))
                                 Text("\(likeCount)")
                                     .font(.caption)
                                     .foregroundColor(.gray)
+                                }
                             }
                             HStack {
-                                Image(systemName: "message")
+                                Button(action: {
+                                    print("comment")
+                                }) {
+                                Image(colorScheme == .dark ?
+                                      "Comment-Dark"
+                                      :
+                                        "Comment-Light"
+                                )
+                                    .font(.system(size:20))
                                 Text("\(commentsCount)")
                                     .font(.caption)
                                     .foregroundColor(.gray)
+                                }
                             }
                             .padding(.leading, 18)
                             Spacer()
                                 Button(action: {
                                     print("Save Button Pressed")
                                 }) {
-                                    Image(systemName: "bookmark")
+                                    Image(colorScheme == .dark ?
+                                    "Unsaved-Dark"
+                                          :
+                                    "Unsaved-Light")
+//                                    Image("Saved")
                                 }
                             
                         }
@@ -142,11 +180,13 @@ struct PostRenderView: View {
 
                 
             }
-            .padding(.all, 10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-            )
+            .padding(.horizontal, 10)
+            .padding(.top, 10)
+//            .padding(.all, 10)
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 15)
+//                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+//            )
 //            Spacer()
         }
     }
