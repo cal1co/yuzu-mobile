@@ -27,6 +27,7 @@
 		A83D7C302A7D31ED00F071E1 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C2F2A7D31ED00F071E1 /* ProfileInfoView.swift */; };
 		A83D7C322A7D359B00F071E1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C312A7D359B00F071E1 /* ProfileHeaderView.swift */; };
 		A83D7C352A7D3F0200F071E1 /* TextFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C342A7D3F0200F071E1 /* TextFontView.swift */; };
+		A83D7C382A80B68300F071E1 /* PostRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C372A80B68300F071E1 /* PostRenderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		A83D7C2F2A7D31ED00F071E1 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
 		A83D7C312A7D359B00F071E1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A83D7C342A7D3F0200F071E1 /* TextFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFontView.swift; sourceTree = "<group>"; };
+		A83D7C372A80B68300F071E1 /* PostRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRenderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		A83D7C032A79F18400F071E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A83D7C362A80B67000F071E1 /* PostRender */,
 				A83D7C262A7BC02400F071E1 /* PasswordInput */,
 				A83D7C232A7BBA4000F071E1 /* Landing */,
 				A83D7C202A7BB8E200F071E1 /* Signup */,
@@ -227,6 +230,14 @@
 			path = Styling;
 			sourceTree = "<group>";
 		};
+		A83D7C362A80B67000F071E1 /* PostRender */ = {
+			isa = PBXGroup;
+			children = (
+				A83D7C372A80B68300F071E1 /* PostRenderView.swift */,
+			);
+			path = PostRender;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */,
+				A83D7C382A80B68300F071E1 /* PostRenderView.swift in Sources */,
 				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
 				A83D7C352A7D3F0200F071E1 /* TextFontView.swift in Sources */,
 				A83D7C0C2A79F29E00F071E1 /* SearchView.swift in Sources */,
