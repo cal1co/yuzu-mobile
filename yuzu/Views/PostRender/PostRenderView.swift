@@ -11,7 +11,10 @@ import SwiftUI
 struct PostRenderView: View {
     
     @Environment (\.colorScheme) var colorScheme
+    
     @State private var isMenuOpen = false
+    
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .rigid)
     
     let postId: String
     let postContent: String
@@ -69,11 +72,6 @@ struct PostRenderView: View {
                                 })
                             } label: {
                                 ZStack {
-//                                    if isMenuOpen {
-//                                        Circle()
-//                                            .fill(Color(red: 0/255,  green: 186/255, blue: 124 / 255))
-//                                            .frame(width: 30, height: 30)
-//                                    }
                                     Image(
                                           colorScheme == .dark ?
                                           "Ellipsis-Dark"
@@ -81,11 +79,6 @@ struct PostRenderView: View {
                                             "Ellipsis-Light")
                                         .font(.title)
                                         .frame(width: 25, height: 25)
-                                }
-                            }
-                            .onTapGesture {
-                                withAnimation(.easeIn(duration: 0.3)) {
-                                    isMenuOpen.toggle()
                                 }
                             }
                         }
@@ -131,6 +124,9 @@ struct PostRenderView: View {
                         HStack {
                             HStack {
                                 Button(action: {
+                                    if !liked {
+                                        feedbackGenerator.impactOccurred()
+                                    }
                                     print("liked")
                                 }) {
                                     Image (liked ? "Liked"
@@ -146,6 +142,7 @@ struct PostRenderView: View {
                             }
                             HStack {
                                 Button(action: {
+                                    feedbackGenerator.impactOccurred()
                                     print("comment")
                                 }) {
                                 Image(colorScheme == .dark ?
@@ -162,6 +159,7 @@ struct PostRenderView: View {
                             .padding(.leading, 18)
                             Spacer()
                                 Button(action: {
+                                    feedbackGenerator.impactOccurred()
                                     print("Save Button Pressed")
                                 }) {
                                     Image(colorScheme == .dark ?

@@ -23,14 +23,12 @@ struct ProfileView: View {
                     RoundedRectangle(cornerRadius: 0) // Adjust as needed
                         .fill(colorScheme == .dark ? Color.black : Color.white)
                        .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
-                       .frame(height:380)
+                       .frame(height:335)
                        .overlay(
                         
                         ProfileInfoView()
                     
                     )
-//                       .padding(.top, 100)
-//                        .padding(.top, 50)
                     ProfileFeedView()
                 }
             }
@@ -52,7 +50,7 @@ struct ProfileView: View {
                 Spacer()
             }
         }
-        .edgesIgnoringSafeArea(.all)
+//        .edgesIgnoringSafeArea(.all)
     }
 }
 

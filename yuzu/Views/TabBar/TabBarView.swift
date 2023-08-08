@@ -21,6 +21,8 @@ struct TabBarView: View {
                         :
                         (colorScheme == .dark ? "House-Unselected-Dark" : "House-Unselected")
                     )
+                    .padding(.top, 100)
+                
                 }
                 .tag(0)
 
@@ -65,9 +67,12 @@ struct TabBarView: View {
                         :
                         (colorScheme == .dark ? "Profile-Unselected-Dark" : "Profile-Unselected-Light")
                     )
+                    
                 }
                 .tag(4)
+                
         }
+        
     }
 }
 

@@ -26,7 +26,6 @@ struct ProfileInfoView: View {
                         .frame(width: 75, height: 75)
                         .background(Color.gray)
                         .clipShape(Circle())
-                        .padding(.top, 80)
                     
                     TextFontView(text: "\(displayName)",  fontSize: 20)
                         .fontWeight(.bold)
@@ -93,7 +92,7 @@ struct ProfileInfoView: View {
                                 RoundedRectangle(cornerRadius: 7)
                                     .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 2)
                             )
-                    }.padding(EdgeInsets(top:10, leading:40, bottom: 30, trailing: 40))
+                    }.padding(EdgeInsets(top:10, leading:40, bottom: 0, trailing: 40))
                     
                         
                         
