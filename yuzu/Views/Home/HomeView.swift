@@ -47,7 +47,7 @@ struct HomeView: View {
                                     
                                     let progress = (headerData.topScrollOffset + getMaxOffset()) - offset
                                     
-                                    let offsetCondition = (headerData.topScrollOffset + getMaxOffset() >= getMaxOffset()) && getMaxOffset() - progress <= getMaxOffset()
+                                    let offsetCondition = (headerData.topScrollOffset + getMaxOffset()) >= getMaxOffset() && getMaxOffset() - progress <= getMaxOffset()
                                     
                                     let headerOffset = offsetCondition ? -(getMaxOffset() - progress) : -getMaxOffset()
 
@@ -56,15 +56,18 @@ struct HomeView: View {
                                 }
                                 if offset < headerData.offset {
                                     headerData.topScrollOffset = 0
-                                    print(headerData.offset)
                                     if headerData.bottomScrollOffset == 0 {
                                         headerData.bottomScrollOffset = offset
                                     }
                                     
                                     withAnimation(.easeOut(duration: 0.25)) {
-                                        let headerOffset = headerData.headerOffset
+//                                        let headerOffset = headerData.headerOffset
+                                        if headerData.bottomScrollOffset > offset + 40 {
+                                            headerData.headerOffset = 0
+                                            
+                                        }
+//                                        headerData.headerOffset = headerData.bottomScrollOffset > offset + 40 ? 0 : (headerOffset != -getMaxOffset() ? 0 : headerOffset)
                                         
-                                        headerData.headerOffset = headerData.bottomScrollOffset > offset + 40 ? 0 : (headerOffset != -getMaxOffset() ? 0 : headerOffset)
                                     }
                                 }
                                 
