@@ -14,6 +14,7 @@ struct HomeHeaderView: View {
         }
         .frame(height:80)
         .frame(maxWidth:.infinity)
+        .background(Color.gray)
     }
 }
 

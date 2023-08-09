@@ -7,102 +7,79 @@
 
 import SwiftUI
 
+enum ScrollDirection {
+    case up
+    case down
+}
+
 
 struct HomeView: View {
     
-    @StateObject var headerData = HomeHeaderViewModel()
+    
     @State private var isScrolling: Bool = false
     @State private var isRefreshing = false
-    
+    @State private var isHeaderHidden = false
+    @State private var isWaitingToScrollAgain = false
+
     init() {
-        UIScrollView.appearance().bounces = false
+        UIScrollView.appearance().bounces = true
     }
-    
-    
     
     var body: some View {
         VStack {
-            HomeHeaderView()
-                .zIndex(1)
-                .offset(y: headerData.headerOffset)
-            ZStack {
-                CustomScrollViewRepresentable(isScrolling: $isScrolling) {
-                    HomeFeedView(isRefreshing: $isRefreshing)
-                        .overlay(
-                            GeometryReader{proxy -> Color in
-                                let minY = proxy.frame(in: .global).minY
-                                
-                                DispatchQueue.main.async {
-                                    if headerData.startMinY == 0 {
-                                        headerData.startMinY = minY
-                                    }
-                                    
-                                    let offset = headerData.startMinY - minY
-
-                                    if offset > headerData.offset {
-
-                                        headerData.bottomScrollOffset = 0
-                                        
-                                        if headerData.topScrollOffset == 0 {
-                                            headerData.topScrollOffset = offset
-                                        }
-                                        
-                                        let progress = (headerData.topScrollOffset + getMaxOffset()) - offset
-                                        
-                                        let offsetCondition = (headerData.topScrollOffset + getMaxOffset()) >= getMaxOffset() && getMaxOffset() - progress <= getMaxOffset()
-                                        
-                                        let headerOffset = offsetCondition ? -(getMaxOffset() - progress) : -getMaxOffset()
-
-                                        headerData.headerOffset = headerOffset
-                                        
-                                    }
-                                    if offset < headerData.offset {
-                                        
-                                        headerData.topScrollOffset = 0
-                                        if headerData.bottomScrollOffset == 0 {
-                                            headerData.bottomScrollOffset = offset
-                                        }
-                                        
-                                        withAnimation(.easeOut(duration: 0.25)) {
-                                            let headerOffset = headerData.headerOffset
-                                            if headerData.bottomScrollOffset > offset {
-                                                headerData.headerOffset = 0
-                                            } else {
-                                                headerData.headerOffset = headerOffset
-                                            }
-                                            
-                                            
-    //                                        headerData.headerOffset = headerData.bottomScrollOffset > offset + 40 ? 0 : (headerOffset != -getMaxOffset() ? 0 : headerOffset)
-                                            
-                                        }
-                                    }
-                                    
-                                    headerData.offset = offset
-                                }
-                                
-                                
-                                return Color.clear
-                            }
-                                .frame(height: 1)
-                                ,alignment:.top
-                        )
-                        
-                }
-                .onChange(of: isScrolling) { newValue in
-                    if !newValue && headerData.headerOffset < 0 {
-                        withAnimation(.easeOut(duration: 0.25)) {
-                            headerData.headerOffset = -177
-                        }
-                    }
+            if !isHeaderHidden {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    HomeHeaderView()
+                        .zIndex(1)
                 }
             }
-            
-            
+            CustomScrollViewRepresentable(
+                isScrolling: $isScrolling,
+                isRefreshing: $isRefreshing,
+                onRefresh: performRefresh,
+                onScrollDirectionChanged: { direction in
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        print(direction)
+                        if isWaitingToScrollAgain {
+                            isHeaderHidden = false
+                            return
+                        }
+                        if isRefreshing {
+                            print("refreshing rn")
+                        }
+                        if !isRefreshing {
+                            isHeaderHidden = (direction == .down)
+                        }
+                        
+                    }
+                },
+                content: {
+                    HomeFeedView()
+                }
+            )
+            .onChange(of: isScrolling) { newValue in
+                if newValue {
+                    isWaitingToScrollAgain = false
+                }
+                print("nevalue", newValue)
+            }
+        
         }
+        
     }
     
-    func getMaxOffset() -> CGFloat {
-        return headerData.startMinY + (edges?.top ?? 0) + 10
+    private func performRefresh() {
+        UIScrollView.appearance().bounces = false
+//        isRefreshing = true
+        print("refreshing")
+        isWaitingToScrollAgain = true
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+
+            DispatchQueue.main.async {
+                isRefreshing = false
+                print("refreshed")
+            }
+        }
     }
     
 }
@@ -114,71 +91,125 @@ struct HomeView_Preview: PreviewProvider {
     }
 }
 
-var edges = UIApplication.shared.windows.first?.safeAreaInsets
-
-
 struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
     @Binding var isScrolling: Bool
-    let content: Content
+    @Binding var isRefreshing: Bool
 
-    init(isScrolling: Binding<Bool>, @ViewBuilder content: () -> Content) {
+    let content: Content
+    let onRefresh: () -> Void
+    let onScrollDirectionChanged: (ScrollDirection) -> Void
+
+    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
         self._isScrolling = isScrolling
+        self._isRefreshing = isRefreshing
+        self.onScrollDirectionChanged = onScrollDirectionChanged
+        self.onRefresh = onRefresh
         self.content = content()
     }
 
-    func makeCoordinator() -> CustomScrollViewDelegate {
-        CustomScrollViewDelegate()
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
 
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.delegate = context.coordinator
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefreshControl), for: .valueChanged)
+        scrollView.refreshControl = refreshControl
+
+        let containerView = UIView()
+        scrollView.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        let hostingController = UIHostingController(rootView: content)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(hostingController.view)
+
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            hostingController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            hostingController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+        ])
+
         context.coordinator.onScrollStart = {
+//            print(isScrolling)
             self.isScrolling = true
         }
         context.coordinator.onScrollEnd = {
+//            print(isScrolling)
             self.isScrolling = false
         }
-        let hostingController = UIHostingController(rootView: content)
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(hostingController.view)
-        NSLayoutConstraint.activate([
-            hostingController.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            hostingController.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            hostingController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
+
         return scrollView
     }
 
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        context.coordinator.onScrollStart = {
-            self.isScrolling = true
-            
+        if !isRefreshing {
+            uiView.refreshControl?.endRefreshing()
         }
-        context.coordinator.onScrollEnd = {
-            self.isScrolling = false
+    }
+
+    class Coordinator: NSObject, UIScrollViewDelegate {
+        var lastContentOffset: CGFloat = 0
+        var parent: CustomScrollViewRepresentable
+        var didRefresh: Bool = false
+
+
+        init(_ parent: CustomScrollViewRepresentable) {
+            self.parent = parent
+        }
+
+        @objc func handleRefreshControl() {
+            parent.isRefreshing = true
+            parent.onRefresh()
+            didRefresh = true
+        }
+
+        var onScrollStart: (() -> Void)?
+        var onScrollEnd: (() -> Void)?
+
+        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            onScrollStart?()
+        }
         
+        func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         }
-    }
-}
+        
+        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            if !decelerate {
+                onScrollEnd?()
+            }
+        }
+        
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            if didRefresh {
+                didRefresh = false
+                lastContentOffset = scrollView.contentOffset.y
+                return
+            }
 
-class CustomScrollViewDelegate: NSObject, UIScrollViewDelegate {
-    var onScrollStart: (() -> Void)?
-    var onScrollEnd: (() -> Void)?
+            let direction: ScrollDirection = scrollView.contentOffset.y > lastContentOffset ? .down : .up
+            lastContentOffset = scrollView.contentOffset.y
+            parent.onScrollDirectionChanged(direction)
+        }
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        onScrollStart?()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
+        
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
             onScrollEnd?()
         }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        onScrollEnd?()
+        
     }
 }
+

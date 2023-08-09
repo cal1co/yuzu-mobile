@@ -31,6 +31,7 @@
 		A83D7C3A2A82541C00F071E1 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C392A82541C00F071E1 /* HomeHeaderView.swift */; };
 		A83D7C3C2A82545100F071E1 /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C3B2A82545100F071E1 /* HomeFeedView.swift */; };
 		A83D7C3E2A8265EE00F071E1 /* HomeHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7C3D2A8265EE00F071E1 /* HomeHeaderViewModel.swift */; };
+		A8E3E10D2A837E0B008C5E68 /* SwiftUIPullToRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = A8E3E10C2A837E0B008C5E68 /* SwiftUIPullToRefresh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8E3E10D2A837E0B008C5E68 /* SwiftUIPullToRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +265,9 @@
 			dependencies = (
 			);
 			name = yuzu;
+			packageProductDependencies = (
+				A8E3E10C2A837E0B008C5E68 /* SwiftUIPullToRefresh */,
+			);
 			productName = yuzu;
 			productReference = A83D7BF22A79425000F071E1 /* yuzu.app */;
 			productType = "com.apple.product-type.application";
@@ -291,6 +296,9 @@
 				Base,
 			);
 			mainGroup = A83D7BE92A79425000F071E1;
+			packageReferences = (
+				A8E3E10B2A837E0B008C5E68 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */,
+			);
 			productRefGroup = A83D7BF32A79425000F071E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -541,6 +549,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A8E3E10B2A837E0B008C5E68 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-pull-to-refresh";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A8E3E10C2A837E0B008C5E68 /* SwiftUIPullToRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A8E3E10B2A837E0B008C5E68 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */;
+			productName = SwiftUIPullToRefresh;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A83D7BEA2A79425000F071E1 /* Project object */;
 }
