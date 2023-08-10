@@ -39,13 +39,9 @@ struct HomeView: View {
                 onRefresh: performRefresh,
                 onScrollDirectionChanged: { direction in
                     withAnimation(.easeInOut(duration: 0.25)) {
-                        print(direction)
                         if isWaitingToScrollAgain {
                             isHeaderHidden = false
                             return
-                        }
-                        if isRefreshing {
-                            print("refreshing rn")
                         }
                         if !isRefreshing {
                             isHeaderHidden = (direction == .down)
@@ -61,7 +57,7 @@ struct HomeView: View {
                 if newValue {
                     isWaitingToScrollAgain = false
                 }
-                print("nevalue", newValue)
+//                print("nevalue", newValue)
             }
         
         }

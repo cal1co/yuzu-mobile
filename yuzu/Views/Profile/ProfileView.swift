@@ -30,6 +30,9 @@ struct ProfileView: View {
                     
                     )
                     ProfileFeedView()
+                        .refreshable {
+                            print("refresh profile feed")
+                        }
                 }
             }
             .coordinateSpace(name: "ScrollView")
