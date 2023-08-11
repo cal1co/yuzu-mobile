@@ -87,9 +87,8 @@ struct SearchView: View {
             }
             .padding(.horizontal)
             
-            if !isEditing {
                 ZStack(alignment: .bottom) {
-                    HStack {
+                    HStack(spacing:20) {
                         Spacer()
                         
                         ForEach(tabs, id:\.rawValue) {tab in
@@ -97,7 +96,7 @@ struct SearchView: View {
                                 selectedTab = tab
                             } label: {
                                 Text(tab.title)
-                                    .foregroundColor(tab == selectedTab ? .black : .gray)
+                                    .foregroundColor(tab == selectedTab ? .primary : .gray)
                                     .padding(.vertical, 8)
                                     .matchedGeometryEffect(id: tab, in: namespace, properties: .frame, isSource: true)
                             }
@@ -121,15 +120,12 @@ struct SearchView: View {
                 }
                 
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            }
 
                         
-
-            Spacer()
         }
     }
     func search(query: String) {
-        print("Searching for \(query)")
+        print("Searching for \(query) in \(selectedTab)")
     }
 }
 

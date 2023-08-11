@@ -11,6 +11,7 @@ struct ProfileView: View {
     @Environment (\.colorScheme) var colorScheme
     @ObservedObject var profileViewModel = ProfileViewModel()
     @State private var scrollOffset: CGFloat = 0
+    
         
     var body: some View {
         ZStack {
