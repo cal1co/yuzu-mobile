@@ -21,19 +21,21 @@ struct ProfileView: View {
                         Color.clear.preference(key: ScrollOffsetPreferenceKey.self,
                         value: geometry.frame(in: .named("ScrollView")).minY)
                     }.frame(height: 0)
-                    RoundedRectangle(cornerRadius: 0) // Adjust as needed
+                    RoundedRectangle(cornerRadius: 0)
                         .fill(colorScheme == .dark ? Color.black : Color.white)
                        .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
-                       .frame(height:335)
+                       .frame(height:270)
                        .overlay(
                         
                         ProfileInfoView()
+                        
                     
                     )
                     ProfileFeedView()
                         .refreshable {
                             print("refresh profile feed")
                         }
+                    
                 }
             }
             .coordinateSpace(name: "ScrollView")

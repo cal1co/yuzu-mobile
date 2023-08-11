@@ -49,9 +49,8 @@ struct PostCreateView: View {
                 Circle()
                     .fill(Color.gray)
                     .frame(width: 40, height: 40)
-//                    .padding(.horizontal, 10)
-                VStack(alignment: .leading) {  // Wrap TextField and paperclip inside VStack
-                    TextField("Enter text...", text: $postText, axis: .vertical)
+                VStack(alignment: .leading) {
+                    TextField("What's on your mind?", text: $postText, axis: .vertical)
                         .lineLimit(nil)
                         .padding()
                         .background(Color.gray.opacity(0.1))
