@@ -15,59 +15,66 @@ enum ScrollDirection {
 
 struct HomeView: View {
     
+    @Binding var isPostDetailViewPresented: Bool
     
     @State private var isScrolling: Bool = false
     @State private var isRefreshing = false
     @State private var isHeaderHidden = false
     @State private var isWaitingToScrollAgain = false
-
-    init() {
-        UIScrollView.appearance().bounces = true
-    }
+    
+//    init() {
+//        UIScrollView.appearance().bounces = true
+//    }
     
     var body: some View {
-        VStack {
-            if !isHeaderHidden {
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    HomeHeaderView()
-                        .zIndex(1)
-                }
-            }
-            CustomScrollViewRepresentable(
-                isScrolling: $isScrolling,
-                isRefreshing: $isRefreshing,
-                onRefresh: performRefresh,
-                onScrollDirectionChanged: { direction in
+        NavigationView {
+            VStack {
+                if !isHeaderHidden {
                     withAnimation(.easeInOut(duration: 0.25)) {
-                        if isWaitingToScrollAgain {
-                            isHeaderHidden = false
-                            return
-                        }
-                        if !isRefreshing {
-                            isHeaderHidden = (direction == .down)
-                        }
                         
+                        HomeHeaderView()
+                            .zIndex(1)
                     }
-                },
-                content: {
-                    HomeFeedView()
                 }
-            )
-            .onChange(of: isScrolling) { newValue in
-                if newValue {
-                    isWaitingToScrollAgain = false
+                CustomScrollViewRepresentable(
+                    isScrolling: $isScrolling,
+                    isRefreshing: $isRefreshing,
+                    onRefresh: performRefresh,
+                    onScrollDirectionChanged: { direction in
+                        withAnimation(.easeInOut(duration: 0.25)) {
+                            if isWaitingToScrollAgain {
+                                isHeaderHidden = false
+                                return
+                            }
+                            if !isRefreshing {
+                                isHeaderHidden = (direction == .down)
+                            }
+                            
+                        }
+                    },
+                    content: {
+                        HomeFeedView(isPostDetailViewPresented: $isPostDetailViewPresented)
+                    }
+                )
+                .onChange(of: isScrolling) { newValue in
+                    if newValue {
+                        isWaitingToScrollAgain = false
+                    }
+                    //                print("nevalue", newValue)
                 }
-//                print("nevalue", newValue)
+                
             }
-        
         }
-        
     }
+    
     
     private func performRefresh() {
         UIScrollView.appearance().bounces = false
 //        isRefreshing = true
         print("refreshing")
+        if isPostDetailViewPresented {
+            print(isPostDetailViewPresented)
+        }
         isWaitingToScrollAgain = true
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
 
@@ -77,13 +84,15 @@ struct HomeView: View {
             }
         }
     }
+        
     
 }
 
 
 struct HomeView_Preview: PreviewProvider {
+    @State static var isPostDetailViewPresented = false
     static var previews: some View {
-        TabBarView()
+        HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
     }
 }
 

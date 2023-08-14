@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A83B5B9D2A8A274E00B98D58 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B5B9C2A8A274E00B98D58 /* PostDetailView.swift */; };
 		A83D7BF62A79425000F071E1 /* yuzuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83D7BF52A79425000F071E1 /* yuzuApp.swift */; };
 		A83D7BFA2A79425200F071E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BF92A79425200F071E1 /* Assets.xcassets */; };
 		A83D7BFD2A79425200F071E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A83D7BFC2A79425200F071E1 /* Preview Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A83B5B9C2A8A274E00B98D58 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		A83D7BF22A79425000F071E1 /* yuzu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yuzu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A83D7BF52A79425000F071E1 /* yuzuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yuzuApp.swift; sourceTree = "<group>"; };
 		A83D7BF92A79425200F071E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A83B5B9B2A8A274000B98D58 /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A83B5B9C2A8A274E00B98D58 /* PostDetailView.swift */,
+			);
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
 		A83D7BE92A79425000F071E1 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +127,7 @@
 		A83D7C032A79F18400F071E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A83B5B9B2A8A274000B98D58 /* PostDetail */,
 				A8E71A5E2A890138000A8E8C /* HomeSidePanel */,
 				A83D7C362A80B67000F071E1 /* PostRender */,
 				A83D7C262A7BC02400F071E1 /* PasswordInput */,
@@ -339,6 +350,7 @@
 				A83D7C252A7BBA5000F071E1 /* LandingView.swift in Sources */,
 				A83D7C382A80B68300F071E1 /* PostRenderView.swift in Sources */,
 				A83D7C3C2A82545100F071E1 /* HomeFeedView.swift in Sources */,
+				A83B5B9D2A8A274E00B98D58 /* PostDetailView.swift in Sources */,
 				A83D7C152A79F2EC00F071E1 /* ProfileView.swift in Sources */,
 				A83D7C3E2A8265EE00F071E1 /* HomeHeaderViewModel.swift in Sources */,
 				A83D7C352A7D3F0200F071E1 /* TextFontView.swift in Sources */,

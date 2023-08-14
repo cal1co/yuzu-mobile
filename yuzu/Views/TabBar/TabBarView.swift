@@ -9,13 +9,19 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var selectedTab = 0
+    
     @Environment (\.colorScheme) var colorScheme
+    
     @State private var isPostCreateSheetVisible = false
     @State private var previousSelectedTab: Int = 0
     @State private var latestSelectedTab: Int = 0
     @State private var highlightedTab: Int?
     @State private var isSidebarVisible: Bool = false
     @State private var xOffset: CGFloat = 0.0
+    
+    
+    @State private var isPostDetailViewPresented: Bool = false
+
     
     var overlayOpacity: Double {
             Double(xOffset / 250) * 0.5
@@ -29,7 +35,7 @@ struct TabBarView: View {
                 .background(Color.blue)
             
             TabView(selection: $selectedTab) {
-                HomeView()
+                HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
                     .tabItem {
                         Image(
                             selectedTab == 0 || highlightedTab == 0 ?
@@ -124,7 +130,8 @@ struct TabBarView: View {
             .offset(x: xOffset)
             
             .gesture(
-                DragGesture()
+                
+                selectedTab == 0 && !self.isPostDetailViewPresented ? DragGesture()
                     .onChanged { value in
                         if value.translation.width > 0 {
                             self.xOffset = min(250, value.translation.width)
@@ -146,7 +153,8 @@ struct TabBarView: View {
                             }
                             
                         }
-                    }
+                    } :
+                    nil
             )
             
             
