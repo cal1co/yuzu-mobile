@@ -19,13 +19,9 @@ struct PostDetailView: View {
         .navigationBarTitle(Text(post.username), displayMode: .inline)
         .onAppear {
             isPostDetailViewPresented = true
-            print("hi")
-            print(isPostDetailViewPresented)
         }
         .onDisappear {
             isPostDetailViewPresented = false
-            print("bye")
-            print(isPostDetailViewPresented)
         }
     }
 }

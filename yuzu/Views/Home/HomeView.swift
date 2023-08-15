@@ -21,10 +21,7 @@ struct HomeView: View {
     @State private var isRefreshing = false
     @State private var isHeaderHidden = false
     @State private var isWaitingToScrollAgain = false
-    
-//    init() {
-//        UIScrollView.appearance().bounces = true
-//    }
+
     
     var body: some View {
         NavigationView {
@@ -39,6 +36,7 @@ struct HomeView: View {
                 CustomScrollViewRepresentable(
                     isScrolling: $isScrolling,
                     isRefreshing: $isRefreshing,
+                    isHeaderHidden: $isHeaderHidden,
                     onRefresh: performRefresh,
                     onScrollDirectionChanged: { direction in
                         withAnimation(.easeInOut(duration: 0.25)) {
@@ -99,14 +97,19 @@ struct HomeView_Preview: PreviewProvider {
 struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
     @Binding var isScrolling: Bool
     @Binding var isRefreshing: Bool
+    
+    @Binding var isHeaderHidden: Bool
+    
+//    let onScrollPositionChanged: (CGFloat) -> Void
 
     let content: Content
     let onRefresh: () -> Void
     let onScrollDirectionChanged: (ScrollDirection) -> Void
 
-    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
+    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, isHeaderHidden: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
         self._isScrolling = isScrolling
         self._isRefreshing = isRefreshing
+        self._isHeaderHidden = isHeaderHidden
         self.onScrollDirectionChanged = onScrollDirectionChanged
         self.onRefresh = onRefresh
         self.content = content()
@@ -149,11 +152,9 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
         ])
 
         context.coordinator.onScrollStart = {
-//            print(isScrolling)
             self.isScrolling = true
         }
         context.coordinator.onScrollEnd = {
-//            print(isScrolling)
             self.isScrolling = false
         }
 
@@ -208,6 +209,16 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
             let direction: ScrollDirection = scrollView.contentOffset.y > lastContentOffset ? .down : .up
             lastContentOffset = scrollView.contentOffset.y
             parent.onScrollDirectionChanged(direction)
+            
+            if scrollView.contentOffset.y <= 0 {
+                print("At the top!")
+                parent.isHeaderHidden = false
+            }
+            
+            if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+                print("At the bottom!")
+                parent.isHeaderHidden = true
+            }
         }
 
         

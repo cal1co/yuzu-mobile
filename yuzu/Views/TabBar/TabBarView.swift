@@ -36,6 +36,8 @@ struct TabBarView: View {
             
             TabView(selection: $selectedTab) {
                 HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
+                   
+                    
                     .tabItem {
                         Image(
                             selectedTab == 0 || highlightedTab == 0 ?
@@ -47,8 +49,6 @@ struct TabBarView: View {
                         
                     }
                     .tag(0)
-                    
-                
                 
                 SearchView()
                     .tabItem {
@@ -120,6 +120,7 @@ struct TabBarView: View {
                 }
             )
             .onChange(of: selectedTab) { newTab in
+                
                 previousSelectedTab = latestSelectedTab
                 latestSelectedTab = newTab
             }
@@ -130,7 +131,6 @@ struct TabBarView: View {
             .offset(x: xOffset)
             
             .gesture(
-                
                 selectedTab == 0 && !self.isPostDetailViewPresented ? DragGesture()
                     .onChanged { value in
                         if value.translation.width > 0 {

@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    @Environment (\.colorScheme) var colorScheme
     var body: some View {
-        HStack {
-            Text("Header")
-        }
-        .frame(height:80)
-        .frame(maxWidth:.infinity)
-        .background(Color.gray)
+        RoundedRectangle(cornerRadius: 0)
+            .fill(colorScheme == .dark ? Color.black : Color.white)
+           .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
+           .frame(height:60)
+           .overlay(
+            
+//            HStack {
+                Text("Header")
+//            }
+//            .frame(height:80)
+//            .frame(maxWidth:.infinity)
+            
+        
+        )
+        
+//        .background(Color.gray)
     }
 }
 
