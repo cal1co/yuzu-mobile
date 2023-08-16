@@ -31,9 +31,9 @@ struct TabBarView: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            SideBarMenuView()
+            SidebarMenuView()
                 .frame(width: self.sideBarSize)
-                .background(Color.blue)
+                
             
             TabView(selection: $selectedTab) {
                 HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
