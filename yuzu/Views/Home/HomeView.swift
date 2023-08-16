@@ -17,11 +17,13 @@ struct HomeView: View {
     
     @Binding var isPostDetailViewPresented: Bool
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var isScrolling: Bool = false
     @State private var isRefreshing = false
     @State private var isHeaderHidden = false
     @State private var isWaitingToScrollAgain = false
-
+    @State private var isAtTop = false
     
     var body: some View {
         NavigationView {
@@ -37,6 +39,7 @@ struct HomeView: View {
                     isScrolling: $isScrolling,
                     isRefreshing: $isRefreshing,
                     isHeaderHidden: $isHeaderHidden,
+                    isAtTop: $isAtTop,
                     onRefresh: performRefresh,
                     onScrollDirectionChanged: { direction in
                         withAnimation(.easeInOut(duration: 0.25)) {
@@ -44,7 +47,7 @@ struct HomeView: View {
                                 isHeaderHidden = false
                                 return
                             }
-                            if !isRefreshing {
+                            if !isRefreshing && !isAtTop {
                                 isHeaderHidden = (direction == .down)
                             }
                             
@@ -62,8 +65,9 @@ struct HomeView: View {
                 }
                 
             }
-        }
-    }
+        } // navigation view
+        .accentColor(colorScheme == .dark ? .white : .black)
+    } // body
     
     
     private func performRefresh() {
@@ -81,10 +85,8 @@ struct HomeView: View {
                 print("refreshed")
             }
         }
-    }
-        
-    
-}
+    } // perform refresh
+} // homeview
 
 
 struct HomeView_Preview: PreviewProvider {
@@ -100,16 +102,19 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
     
     @Binding var isHeaderHidden: Bool
     
+    @Binding var isAtTop: Bool
+    
 //    let onScrollPositionChanged: (CGFloat) -> Void
 
     let content: Content
     let onRefresh: () -> Void
     let onScrollDirectionChanged: (ScrollDirection) -> Void
 
-    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, isHeaderHidden: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
+    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, isHeaderHidden: Binding<Bool>, isAtTop: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
         self._isScrolling = isScrolling
         self._isRefreshing = isRefreshing
         self._isHeaderHidden = isHeaderHidden
+        self._isAtTop = isAtTop
         self.onScrollDirectionChanged = onScrollDirectionChanged
         self.onRefresh = onRefresh
         self.content = content()
@@ -211,13 +216,16 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
             parent.onScrollDirectionChanged(direction)
             
             if scrollView.contentOffset.y <= 0 {
-                print("At the top!")
-                parent.isHeaderHidden = false
+//                print("At the top!")
+                parent.isAtTop = true
+//                parent.isHeaderHidden = false
+            } else {
+                parent.isAtTop = false
             }
             
             if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
-                print("At the bottom!")
-                parent.isHeaderHidden = true
+//                print("At the bottom!")
+//                parent.isHeaderHidden = true
             }
         }
 

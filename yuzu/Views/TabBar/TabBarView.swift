@@ -21,17 +21,18 @@ struct TabBarView: View {
     
     
     @State private var isPostDetailViewPresented: Bool = false
-
+    
+    @State private var sideBarSize:CGFloat = 275
     
     var overlayOpacity: Double {
-            Double(xOffset / 250) * 0.5
+        Double(xOffset / self.sideBarSize) * 0.5
     }
     
     
     var body: some View {
         ZStack(alignment: .leading) {
-            SideBarMenu()
-                .frame(width: 250)
+            SideBarMenuView()
+                .frame(width: self.sideBarSize)
                 .background(Color.blue)
             
             TabView(selection: $selectedTab) {
@@ -133,28 +134,33 @@ struct TabBarView: View {
             .gesture(
                 selectedTab == 0 && !self.isPostDetailViewPresented ? DragGesture()
                     .onChanged { value in
-                        if value.translation.width > 0 {
-                            self.xOffset = min(250, value.translation.width)
-                        } else if self.isSidebarVisible {
-                            self.xOffset = min(250, max(0, 250 + value.translation.width))
+                        // Check if the gesture is more horizontal than vertical
+                        if abs(value.translation.width) > abs(value.translation.height) {
+                            if value.translation.width > 0 {
+                                self.xOffset = min(self.sideBarSize, value.translation.width)
+                            } else if self.isSidebarVisible {
+                                self.xOffset = min(self.sideBarSize, max(0, self.sideBarSize + value.translation.width))
+                            }
                         }
                     }
                     .onEnded { value in
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            if self.xOffset < 200 && isSidebarVisible {
-                                self.isSidebarVisible = false
-                                self.xOffset = 0
-                            } else if self.xOffset > 50{
-                                self.isSidebarVisible = true
-                                self.xOffset = 250
-                            } else {
-                                self.isSidebarVisible = false
-                                self.xOffset = 0
+                        if abs(value.translation.width) > abs(value.translation.height) {
+                            withAnimation(.easeInOut(duration: 0.25)) {
+                                if self.xOffset < 200 && isSidebarVisible {
+                                    self.isSidebarVisible = false
+                                    self.xOffset = 0
+                                } else if self.xOffset > 50{
+                                    self.isSidebarVisible = true
+                                    self.xOffset = self.sideBarSize
+                                } else {
+                                    self.isSidebarVisible = false
+                                    self.xOffset = 0
+                                }
                             }
-                            
                         }
                     } :
                     nil
+
             )
             
             
@@ -163,15 +169,7 @@ struct TabBarView: View {
     
 }
 
-struct SideBarMenu: View {
-    var body: some View {
-        List {
-            Text("Item 1")
-            Text("Item 2")
-            Text("Item 3")
-        }
-    }
-}
+
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView()

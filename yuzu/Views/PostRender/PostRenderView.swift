@@ -57,30 +57,32 @@ struct PostRenderView: View {
                             Text(dateCreated)
                                 .font(.caption)
                                 .foregroundColor(.gray)
-                            Menu {
-                                Button("Block User", action: {
-                                    print("Block User action")
-                                })
-                                Button("Follow User", action: {
-                                    print("Follow User action")
-                                })
-                                Button("Mute User", action: {
-                                    print("Mute User action")
-                                })
-                                Button("Report Post", action: {
-                                    print("Report Post action")
-                                })
-                            } label: {
-                                ZStack {
-                                    Image(
-                                          colorScheme == .dark ?
-                                          "Ellipsis-Dark"
-                                          :
-                                            "Ellipsis-Light")
-                                        .font(.title)
-                                        .frame(width: 25, height: 25)
+                                Menu {
+                                    Button("Block User", action: {
+                                        print("Block User action")
+                                    })
+                                    Button("Follow User", action: {
+                                        print("Follow User action")
+                                    })
+                                    Button("Mute User", action: {
+                                        print("Mute User action")
+                                    })
+                                    Button("Report Post", action: {
+                                        print("Report Post action")
+                                    })
+                                } label: {
+                                    ZStack {
+                                        Image(
+                                              colorScheme == .dark ?
+                                              "Ellipsis-Dark"
+                                              :
+                                                "Ellipsis-Light")
+                                            .font(.title)
+                                            .frame(width: 25, height: 25)
+                                    }
                                 }
-                            }
+                                .highPriorityGesture(TapGesture())
+                                
                         }
                         
                         ZStack {
@@ -180,12 +182,6 @@ struct PostRenderView: View {
             }
             .padding(.horizontal, 10)
             .padding(.top, 10)
-//            .padding(.all, 10)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 15)
-//                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-//            )
-//            Spacer()
         }
     }
 }

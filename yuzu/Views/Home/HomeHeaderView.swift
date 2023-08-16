@@ -15,17 +15,10 @@ struct HomeHeaderView: View {
            .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 2)
            .frame(height:60)
            .overlay(
-            
-//            HStack {
-                Text("Header")
-//            }
-//            .frame(height:80)
-//            .frame(maxWidth:.infinity)
-            
-        
-        )
-        
-//        .background(Color.gray)
+            Image(
+                (colorScheme == .dark ? "yuzu-dark" : "yuzu-light")
+            )
+           )
     }
 }
 
