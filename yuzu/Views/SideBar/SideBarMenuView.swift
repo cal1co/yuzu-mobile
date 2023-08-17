@@ -9,10 +9,16 @@ import SwiftUI
 
 struct SidebarMenuView: View {
     @State private var isLoggedIn = true // You can adjust this based on user's login status
-    @State private var username = "Calico"
+    @State private var displayname = "Calico"
+    @State private var username = "Calico2"
+    @State private var followingCount = 123
     @State private var followCount = 1_234
+    @State private var isSettingsViewActive = false
 
     var body: some View {
+        NavigationView {
+            
+       
         VStack(alignment: .leading) {
             if isLoggedIn {
                 VStack(alignment: .leading, spacing: 16) {
@@ -23,12 +29,20 @@ struct SidebarMenuView: View {
                         .clipShape(Circle())
                         .padding(.top)
 
-                    Text(username)
+                    Text(displayname)
                         .font(.headline)
-                    
-                    Text("\(followCount) Followers")
+                    Text(username)
                         .font(.subheadline)
+                    
+                    HStack {
+                        Text("\(followingCount) Following")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text("\(followCount) Followers")
+                            .font(.subheadline)
                         .foregroundColor(.gray)
+                        
+                    }
                 }
                 .padding(.horizontal)
 
@@ -41,7 +55,7 @@ struct SidebarMenuView: View {
                     HStack {
                         Image("Bookmarks-Unselected-Light")
                         Text("Bookmarks")
-                            .font(.custom("Hiragino Kaku Gothic ProN", size: 14))
+                            .font(.custom("Hiragino Kaku Gothic ProN", size: 16))
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal)
@@ -54,7 +68,7 @@ struct SidebarMenuView: View {
                     HStack {
                         Image("Messages-Unselected-Light")
                         Text("Notifications")
-                            .font(.custom("Hiragino Kaku Gothic ProN", size: 14))
+                            .font(.custom("Hiragino Kaku Gothic ProN", size: 16))
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal)
@@ -62,7 +76,19 @@ struct SidebarMenuView: View {
                 }
 
                 Spacer()
-
+                Button(action: {
+                   isSettingsViewActive = true
+               }) {
+                   HStack {
+                       Image(systemName: "gearshape.fill")
+                       Text("Settings")
+                   }
+                   .padding(.vertical, 8)
+                   .padding(.horizontal)
+                   .foregroundColor(.primary)
+               }
+//               .background(NavigationLink("", destination: SettingsView(), isActive: $isSettingsViewActive).hidden())
+                
                 Button(action: {
                     // Handle logout action
                     isLoggedIn = false
@@ -78,6 +104,7 @@ struct SidebarMenuView: View {
                 .padding(.bottom)
             } else {
                 VStack {
+                    
                     Spacer()
                     Button(action: {
                         // Handle login action
@@ -97,7 +124,10 @@ struct SidebarMenuView: View {
         }
         .frame(width: 250)
         .background(Color.white)
-//        .shadow(radius: 5)
+        .sheet(isPresented: $isSettingsViewActive) {  
+            SettingsView()
+        }
+        }
     }
 }
 

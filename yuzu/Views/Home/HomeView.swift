@@ -16,6 +16,7 @@ enum ScrollDirection {
 struct HomeView: View {
     
     @Binding var isPostDetailViewPresented: Bool
+    @ObservedObject var model: TabModel
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -36,6 +37,7 @@ struct HomeView: View {
                     }
                 }
                 CustomScrollViewRepresentable(
+                    model: model,
                     isScrolling: $isScrolling,
                     isRefreshing: $isRefreshing,
                     isHeaderHidden: $isHeaderHidden,
@@ -92,25 +94,27 @@ struct HomeView: View {
 struct HomeView_Preview: PreviewProvider {
     @State static var isPostDetailViewPresented = false
     static var previews: some View {
-        HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
+        TabBarView()
     }
 }
 
 struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
+    let content: Content
     @Binding var isScrolling: Bool
     @Binding var isRefreshing: Bool
-    
+    var model: TabModel
     @Binding var isHeaderHidden: Bool
     
     @Binding var isAtTop: Bool
     
 //    let onScrollPositionChanged: (CGFloat) -> Void
 
-    let content: Content
+    
     let onRefresh: () -> Void
     let onScrollDirectionChanged: (ScrollDirection) -> Void
 
-    init(isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, isHeaderHidden: Binding<Bool>, isAtTop: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
+    init(model: TabModel, isScrolling: Binding<Bool>, isRefreshing: Binding<Bool>, isHeaderHidden: Binding<Bool>, isAtTop: Binding<Bool>, onRefresh: @escaping () -> Void, onScrollDirectionChanged: @escaping (ScrollDirection) -> Void, @ViewBuilder content: () -> Content) {
+        self.model = model
         self._isScrolling = isScrolling
         self._isRefreshing = isRefreshing
         self._isHeaderHidden = isHeaderHidden
@@ -122,7 +126,11 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
 
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        let coordinator = Coordinator(self)
+//        if let tabModel = model as? TabModel {
+//            tabModel.scrollViewCoordinator = coordinator
+//        }
+        return coordinator
     }
 
     func makeUIView(context: Context) -> UIScrollView {
@@ -130,6 +138,7 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
         scrollView.delegate = context.coordinator
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        context.coordinator.scrollView = scrollView
 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefreshControl), for: .valueChanged)
@@ -176,6 +185,8 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
         var lastContentOffset: CGFloat = 0
         var parent: CustomScrollViewRepresentable
         var didRefresh: Bool = false
+        
+        var scrollView: UIScrollView?
 
 
         init(_ parent: CustomScrollViewRepresentable) {
@@ -193,6 +204,10 @@ struct CustomScrollViewRepresentable<Content: View>: UIViewRepresentable {
 
         func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
             onScrollStart?()
+        }
+        func scrollToTop() {
+            print("scrolling")
+            scrollView?.setContentOffset(.zero, animated: true)
         }
         
         func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

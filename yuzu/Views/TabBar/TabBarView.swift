@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+extension Binding {
+    func onUpdate(_ closure: @escaping () -> Void) -> Binding<Value> {
+        Binding(get: {
+            wrappedValue
+        }, set: { newValue in
+            wrappedValue = newValue
+            closure()
+        })
+    }
+}
+
+
 struct TabBarView: View {
     @State private var selectedTab = 0
     
@@ -19,6 +31,7 @@ struct TabBarView: View {
     @State private var isSidebarVisible: Bool = false
     @State private var xOffset: CGFloat = 0.0
     
+    @ObservedObject var model = TabModel()
     
     @State private var isPostDetailViewPresented: Bool = false
     
@@ -35,8 +48,8 @@ struct TabBarView: View {
                 .frame(width: self.sideBarSize)
                 
             
-            TabView(selection: $selectedTab) {
-                HomeView(isPostDetailViewPresented: $isPostDetailViewPresented)
+            TabView(selection: $selectedTab.onUpdate{ model.selectTab(item: selectedTab, lastSelectedTab: latestSelectedTab) }) {
+                HomeView(isPostDetailViewPresented: $isPostDetailViewPresented, model: model)
                    
                     
                     .tabItem {
@@ -60,6 +73,7 @@ struct TabBarView: View {
                                 (colorScheme == .dark ? "Search-Unselected-Dark" : "Search-Unselected-Light")
                         )
                     }
+                    
                     .tag(1)
                 
                 TempBlankView(isPostCreateSheetVisible: $isPostCreateSheetVisible,
@@ -168,6 +182,18 @@ struct TabBarView: View {
     }
     
 }
+class TabModel: ObservableObject {
+    var scrollViewCoordinator: CustomScrollViewRepresentable<HomeFeedView>.Coordinator?
+
+    func selectTab(item: Int, lastSelectedTab: Int) {
+        print("Double tap \(item == lastSelectedTab)")
+//        if item == lastSelectedTab {
+//            scrollToTopSubject.send(())
+//        }
+    }
+}
+
+
 
 
 struct TabBarView_Previews: PreviewProvider {
