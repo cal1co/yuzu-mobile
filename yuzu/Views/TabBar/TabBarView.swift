@@ -29,7 +29,11 @@ struct TabBarView: View {
     
     @Environment (\.colorScheme) var colorScheme
     
-    @State private var isPostCreateSheetVisible = false
+    @Binding var isPostCreateSheetVisible: Bool
+    @Binding var isSubmittingPost: Bool
+    @Binding var postStatus: PostStatus?
+    
+    
     @State private var previousSelectedTab: Int = 0
     @State private var latestSelectedTab: Int = 0
     @State private var highlightedTab: Int?
@@ -37,9 +41,8 @@ struct TabBarView: View {
     @State private var xOffset: CGFloat = 0.0
     @ObservedObject var model = TabModel()
     @State private var isPostDetailViewPresented: Bool = false
-    @State private var sideBarSize:CGFloat = 275
-    @State private var isSubmittingPost: Bool = false
-    @State private var postStatus: PostStatus? = nil
+    @State private var sideBarSize:CGFloat = 275.0
+    
 
 
     
@@ -142,17 +145,17 @@ struct TabBarView: View {
                                 :
                                     (colorScheme == .dark ? "Profile-Unselected-Dark" : "Profile-Unselected-Light")
                             )
-                            
+
                         }
                         .tag(4)
                 }
-                .overlay(
-                    Group {
-                        if isSubmittingPost, let status = postStatus {
-                            PostStatusOverlayView(postStatus: status)
-                        }
-                    }
-                )
+//                .overlay(
+//                    Group {
+//                        if isSubmittingPost {
+//                            PostStatusOverlayView(postStatus: $postStatus)
+//                        }
+//                    }
+//                )
                 .overlay(
                     Rectangle()
                         .fill(Color.black.opacity(overlayOpacity))
@@ -179,7 +182,7 @@ struct TabBarView: View {
                     latestSelectedTab = newTab
                 }
 //                .sheet(isPresented: $isPostCreateSheetVisible) {
-//                    PostCreateView()
+//                    PostCreateView(isSubmittingPost: $isSubmittingPost, postStatus: $postStatus)
 //                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .offset(x: xOffset)
@@ -202,36 +205,15 @@ class TabModel: ObservableObject {
     }
 }
 
-struct PostStatusOverlayView: View {
-    var postStatus: PostStatus
 
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                switch postStatus {
-                case .submitting:
-                    Text("Submitting post...")
-                case .success:
-                    Text("Successfully submitted!")
-                case .failed:
-                    Text("Submission failed!")
-                }
-                Spacer()
-                CustomProgressView(postStatus: postStatus)
-            }
-            .padding()
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(15)
-        }
-    }
-}
 
 
 
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView()
+        TabBarView(isPostCreateSheetVisible: .constant(false),
+                   isSubmittingPost: .constant(false),
+                   postStatus: .constant(nil))
     }
 }
 
@@ -251,27 +233,3 @@ struct TempBlankView: View {
         
     }
 }
-struct CustomProgressView: View {
-    var postStatus: PostStatus
-    var body: some View {
-        switch postStatus {
-        case .submitting(let progress):
-            Circle()
-                .trim(from: 0.0, to: CGFloat(progress))
-                .stroke(Color.blue, lineWidth: 4)
-                .rotationEffect(Angle(degrees: -90))
-                .frame(width: 30, height: 30)
-        case .success:
-            Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green)
-                .font(.system(size: 30))
-        case .failed:
-            Image(systemName: "xmark.circle.fill")
-                .foregroundColor(.red)
-                .font(.system(size: 30))
-        }
-    }
-}
-
-
-

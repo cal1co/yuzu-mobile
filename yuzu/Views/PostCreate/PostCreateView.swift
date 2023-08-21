@@ -9,9 +9,11 @@ import SwiftUI
 
 struct TopBarView: View {
     
+    @Binding var isSubmittingPost: Bool
     @Environment(\.presentationMode) var presentationMode
     @Binding var postText: String
     @Binding var postStatus: PostStatus?
+    
     var isPostButtonDisabled: Bool {
         postText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
@@ -30,11 +32,12 @@ struct TopBarView: View {
             
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
-                postStatus = .submitting(progress: 0.0)
-                
+                self.postStatus = .submitting(progress: 0.0)
+                self.isSubmittingPost = true
                 Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
-                    DispatchQueue.main.async { // Ensure we're on the main thread
+                    DispatchQueue.main.async {
                         if case .submitting(let progress) = self.postStatus, progress < 1.0 {
+//                            print(progress)
                             self.postStatus = .submitting(progress: progress + 0.2)
                         } else {
                             timer.invalidate()
@@ -46,6 +49,7 @@ struct TopBarView: View {
                             }
                         }
                     }
+                    
                 }
 
             }) {
@@ -63,6 +67,7 @@ struct TopBarView: View {
 }
 
 struct PostInputView: View {
+    
     
     @Binding var isImagePickerShown: Bool
 //    @Binding var isPostCreateSheetVisible: Bool
@@ -124,7 +129,7 @@ struct PostCreateView: View {
 
     var body: some View {
         VStack {
-            TopBarView(postText: $postText, postStatus: $postStatus)
+            TopBarView(isSubmittingPost: $isSubmittingPost, postText: $postText, postStatus: $postStatus)
             PostInputView(isImagePickerShown: $isImagePickerShown, postText: $postText)
 
             Spacer()

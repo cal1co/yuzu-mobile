@@ -94,7 +94,9 @@ struct HomeView: View {
 struct HomeView_Preview: PreviewProvider {
     @State static var isPostDetailViewPresented = false
     static var previews: some View {
-        TabBarView()
+        TabBarView(isPostCreateSheetVisible: .constant(false),
+                   isSubmittingPost: .constant(false),
+                   postStatus: .constant(nil))
     }
 }
 
